@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140515221921) do
   create_table "adventures", force: true do |t|
     t.string   "title"
     t.string   "author"
-    t.string   "Guid"
+    t.string   "guid"
     t.integer  "library_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140515221921) do
   add_index "adventures", ["library_id"], name: "index_adventures_on_library_id", using: :btree
 
   create_table "libraries", force: true do |t|
-    t.text     "Url"
+    t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,9 +1,18 @@
 class AdventuresController < ApplicationController
-  # before_filter :load_library
+
+  respond_to :json
 
 
   def index
+    @library = Library.new
     @adventures = Adventure.all
+    @local_adventures = Adventure.where(library_id: nil)
+    
+    respond_with(@adventures) do |format|
+      
+      format.html {render "index"}
+      format.json {render json: {adventures: @local_adventures}, except: :id, include: :pages}
+    end
   end
 
   def new
@@ -12,7 +21,7 @@ class AdventuresController < ApplicationController
 
   def create 
     adventure = Adventure.new adventure_params
-    adventure.Guid = SecureRandom.urlsafe_base64
+    
     adventure.save
     redirect_to adventure_path
   end
