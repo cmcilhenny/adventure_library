@@ -24,5 +24,8 @@ module AdventureLibrary
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    AdventureLibrary::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
+    AdventureLibrary::Application.config.secret_key_base ||= "not a good secret key" if ["development", "test"].include?(Rails.env)
   end
 end
