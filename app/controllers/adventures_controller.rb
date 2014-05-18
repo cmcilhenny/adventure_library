@@ -16,14 +16,16 @@ class AdventuresController < ApplicationController
   end
 
   def new
-    @adventures = Adventure.new
+    @adventure = Adventure.new
+    @adventure.pages.build
   end
 
   def create 
-    adventure = Adventure.new adventure_params
-    
-    adventure.save
-    redirect_to adventure_path
+    @adventure = Adventure.new adventure_params
+    if has_start_page? == true
+      @adventure.save
+    end
+    redirect_to new_adventure_page_path(@adventure)
   end
 
   def show
@@ -33,7 +35,7 @@ class AdventuresController < ApplicationController
 
   private 
     def adventure_params
-      params.require(:adventure).permit(:title, :author)
+      params.require(:adventure).permit(:title, :author, :pages_attributes=>[:name, :text])
     end
 
 end

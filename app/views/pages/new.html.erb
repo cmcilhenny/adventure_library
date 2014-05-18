@@ -1,0 +1,21 @@
+<h2>Write the Pages for Your New Adventure Here</h2>
+<h4>helpful tip: remember to link your pages using the following syntax at the end of your page: [[link text|linked_to_page_name]].</h4>
+
+
+<%= form_for [@adventure, @page] do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name, placeholder: "linked_to_page_name" %><br>
+	<%= f.label :text %>
+	<%= f.text_area :text, placeholder: "page text" %><br>
+	<%= f.submit %>
+<%end%>
+
+<h2>Previous Pages Info</h2>
+<% @pages.each do |page| %>
+	<p><strong>Page Name: </strong>
+	<%=page.name %></p>
+	<p><strong>Text: </strong>
+	<%= page.text %></p>
+<%end%>
+
+<%= link_to "Adventure Index", adventures_path(@adventure) %> 

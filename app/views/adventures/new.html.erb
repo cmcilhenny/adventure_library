@@ -1,2 +1,18 @@
 <h2>Create A New Adventure</h2>
 
+<%= form_for @adventure do |f| %>
+	<%= f.label :title %>
+  <%= f.text_field :title, :autofocus => true, :placeholder => "title" %><br>
+  <%= f.label :author %>
+  <%= f.text_field :author, placeholder: "author" %><br>
+  <%= f.fields_for :pages do |b| %>
+  	<%= b.label "Page Name" %>
+  	<%= b.text_field :name, placeholder: "start" %><br>
+  	<%= b.label :text %>
+  	<%= b.text_area :text, placeholder: "This is a great text adventure which is beginning right now!  I can't wait to [[see the end|end]]" %>
+  	
+  <%end%>
+  <br><%= f.submit %>
+
+<%end%>
+

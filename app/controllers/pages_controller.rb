@@ -7,7 +7,24 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @adventure.pages.new(page_params)
+    @page = @adventure.pages.create(page_params)
+    redirect_to new_adventure_page_path
+  end
+
+  def new
+    @page = @adventure.pages.new
+    @pages = @adventure.pages
+  end
+
+  def destroy
+  end
+
+  def update
+
+  end
+
+  def index
+
   end
 
   private
