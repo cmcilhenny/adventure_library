@@ -2,7 +2,6 @@ class AdventuresController < ApplicationController
 
   respond_to :json
 
-
   def index
     @library = Library.new
     @adventures = Adventure.all
@@ -29,7 +28,7 @@ class AdventuresController < ApplicationController
 
   def show
     @adventure = Adventure.find(params[:id])
-    #add checking here for adventures that don't start with start?
+  
   end
 
   private 
@@ -37,7 +36,4 @@ class AdventuresController < ApplicationController
       params.require(:adventure).permit(:title, :author)
     end
 
-    # def load_library
-    #   @library = Library.find(params[:library_id])
-    # end
 end
