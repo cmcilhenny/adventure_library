@@ -12,8 +12,8 @@ class LibrariesController < ApplicationController
 
   def create 
     #get the parameter for the library and create a record
-    #@library = Library.new library_params
-    LibraryWorker.perform_async(library.url)
+    @library = Library.new library_params
+    LibraryWorker.perform_async(@library.url)
     #redirect to adventures index
     redirect_to adventures_path
   end 

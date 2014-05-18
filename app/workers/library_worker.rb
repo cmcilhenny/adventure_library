@@ -3,7 +3,7 @@ class LibraryWorker
 
   def perform(url)
    
-    @library = Library.new(url: url) 
+    #@library = Library.new(url: url) 
     response = Typhoeus.get("#{@library.url}/adventures.json")
    
     if response.response_body == "" 
