@@ -7,6 +7,7 @@ class AdventuresController < ApplicationController
     @library = Library.new
     @adventures = Adventure.all
     @local_adventures = Adventure.where(library_id: nil)
+    @other_adventures = Adventure.where("library_id is NOT NULL")
     
     respond_with(@adventures) do |format|
       
@@ -28,6 +29,7 @@ class AdventuresController < ApplicationController
 
   def show
     @adventure = Adventure.find(params[:id])
+    #add checking here for adventures that don't start with start?
   end
 
   private 

@@ -1,17 +1,18 @@
 <h1>Adventure Index Page!</h1>
 
 <h3>Local Adventures</h3>
-	<% @adventures.each do |adventure| %> 
+	<% @local_adventures.each do |adventure| %> 
 		 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.find_by(name: "start")) %></li>
 	<%end%>
 
 <h3>Adventures from Other Servers</h3>
-<!-- add -->
+	<% @other_adventures.each do |adventure| %>
+		<li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.find_by(name: "start")) %></li>
+	<%end%>
 
 <h3>Adventures with no Start Page</h3>
-<!-- add -->
 
-<h3>add your library</h3>
+<h3>Add your library</h3>
 <%= form_for @library do |f| %>
   <%= f.label :url %>
   <%= f.text_field :url, :autofocus => true, :placeholder => "URL" %>
