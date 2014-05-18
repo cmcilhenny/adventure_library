@@ -50,6 +50,10 @@ gem 'sidekiq'
 
 gem 'typhoeus'
 
+group :production do 
+  gem 'rails_12factor'
+end
+
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
