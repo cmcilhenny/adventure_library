@@ -50,6 +50,8 @@ gem 'sidekiq'
 
 gem 'typhoeus'
 
+gem 'redis'
+
 group :production do 
   gem 'rails_12factor'
 end
