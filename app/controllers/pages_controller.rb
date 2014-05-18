@@ -3,12 +3,11 @@ class PagesController < ApplicationController
 
   def show
     @page = @adventure.pages.find(params[:id])
-    
+
   end
 
   def create
     @page = @adventure.pages.new(page_params)
-
   end
 
   private

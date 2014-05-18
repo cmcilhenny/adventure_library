@@ -5,8 +5,8 @@ class Adventure < ActiveRecord::Base
   before_save :create_guid
 
   def has_start_page?
-    if adventure.pages.where(name: ""
-    end
+    # if adventure.pages.where(name: ""
+    # end
   end
 
   private
