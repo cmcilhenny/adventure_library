@@ -1,38 +1,34 @@
 class LibraryWorker
   include Sidekiq::Worker
+  sidekiq_options :retry => false
 
   def perform(url)
-   
-    @library = Library.new(url: url) 
-    response = Typhoeus.get("#{@library.url}/adventures.json")
-   
-    if response.response_body == "" 
-      redirect_to adventures_path
-    end
-    parsed_response = JSON.parse(response.response_body)
+     # 1. Send main site url to adventure worker
+    AdventureWorker.perform_async(url)
+     # 2. Get list of other libraries from url
+     # 3. Loop through list and send each url to adventure worker
 
-    #loop through the adventures
-    parsed_response["adventures"].each do |adventure|
-      #for each adventure, pull out the title, author, guid, pages.
-      @title = adventure["title"]
-      @author = adventure["author"]
-      @guid = adventure["guid"]
-      @pages = adventure["pages"]
-      #create a new adventure and set the above as each param. Make sure to include foreign-key for library.
-      @adventure = @library.adventures.new(title: @title, author: @author, guid: @guid)
-      #loop through the pages with in each adventure
-      @pages.each do |page|
-        #for each page, pull out the name and text
-        @name = page["name"]
-        @text = page["text"]
-        #create a new page and set the above as the param. Make sure to include foreign-key for adventure.
-        @page = @adventure.pages.new(name: @name, text: @text)
-      end
+    library_response = Typhoeus.get("#{url}/libraries.json")
+    if library_response.response_body == "" 
+      return
     end
-    #save everything with bang to that error is thrown
-    @library.save!
-   
+    parsed_library = JSON.parse(library_response.response_body)
+
+    parsed_library["libraries"].each do |library|
+      @url = library["url"]
+      AdventureWorker.perform_async(@url)
+    end
   end
-
-
 end
+
+
+
+
+
+
+
+
+
+
+
+

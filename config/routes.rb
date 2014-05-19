@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 AdventureLibrary::Application.routes.draw do
   root 'adventures#index'
 
@@ -7,4 +9,5 @@ AdventureLibrary::Application.routes.draw do
     resources :pages
   end
   
+  mount Sidekiq::Web, at: "/sidekiq"
 end

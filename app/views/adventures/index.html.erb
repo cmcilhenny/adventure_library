@@ -2,15 +2,18 @@
 
 <h3>Local Adventures</h3>
 	<% @local_adventures.each do |adventure| %> 
-		 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.find_by(name: "start")) %></li>
+		 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
 	<%end%>
 
 <h3>Adventures from Other Servers</h3>
 	<% @other_adventures.each do |adventure| %>
-		<li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.find_by(name: "start")) %></li>
+		<li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
 	<%end%>
 
 <h3>Adventures with no Start Page</h3>
+<% @broken_adventures.each do |adventure| %>
+		<li><%= adventure.title %></li>
+	<%end%>
 
 <h3>Add your library</h3>
 <%= form_for @library do |f| %>

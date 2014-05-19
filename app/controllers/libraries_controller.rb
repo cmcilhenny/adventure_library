@@ -6,7 +6,8 @@ class LibrariesController < ApplicationController
 
     respond_with(@libraries) do |format|
       format.html {render "index"}
-      format.json {render json: {libraries: @libraries}.as_json}
+      format.json {render json: {libraries: @libraries}, except: [:id, :created_at, :updated_at]}
+      
     end
   end
 

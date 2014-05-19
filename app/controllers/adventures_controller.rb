@@ -4,10 +4,29 @@ class AdventuresController < ApplicationController
 
   def index
     @library = Library.new
+
+    # Get all adventures to split into 3 buckets
     @adventures = Adventure.all
-    @local_adventures = Adventure.where(library_id: nil)
-    @other_adventures = Adventure.where("library_id is NOT NULL")
-    
+
+    @broken_adventures = []
+    @local_adventures = []
+    @other_adventures = []
+
+    @adventures.each do |adventure|
+      # Make sure has start page, else put in broken bucket
+      if !adventure.has_start_page?
+        @broken_adventures.push(adventure)
+      else
+        # If has start page, look for library ID nil for local
+        if adventure.library_id == nil
+          @local_adventures.push(adventure)
+        # Otherwise, put in other bucket
+        else
+          @other_adventures.push(adventure)
+        end
+      end
+    end
+
     respond_with(@adventures) do |format|
       
       format.html {render "index"}
