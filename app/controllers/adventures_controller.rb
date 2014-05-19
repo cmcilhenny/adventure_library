@@ -40,10 +40,7 @@ class AdventuresController < ApplicationController
   end
 
   def create 
-    @adventure = Adventure.new adventure_params
-    if has_start_page? == true
-      @adventure.save
-    end
+    @adventure = Adventure.create adventure_params
     redirect_to new_adventure_page_path(@adventure)
   end
 

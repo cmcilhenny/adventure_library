@@ -12,12 +12,12 @@ class PagesController < ApplicationController
   end
 
   def new
-    @page = @adventure.pages.new
     @pages = @adventure.pages
+    @page = @adventure.pages.new
   end
 
   def destroy
-    
+
   end
 
   def update
