@@ -1,16 +1,18 @@
 class Adventure < ActiveRecord::Base
   belongs_to :library
-
+  validates :guid, uniqueness: true
   has_many :pages, dependent: :destroy
   accepts_nested_attributes_for :pages
   #calling create_guid before save completes
   before_save :create_guid
 
+
   #check for a start page 
   def has_start_page?
-    if adventure.pages.find_by(name: "start") == nil
+    if self.pages.where(name: "start").empty?
       return false
     end
+    return true
   end
 
   private
