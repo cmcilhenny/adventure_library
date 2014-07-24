@@ -1,25 +1,35 @@
-<h1>Adventure Index Page!</h1>
+<div class="row">
 
-<h3>Local Adventures</h3>
-	<% @local_adventures.each do |adventure| %> 
-		 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
+	<h1>Adventure Index Page!</h1>
+
+	<h3>Local Adventures</h3>
+		<% if @local_adventures.count < 1 %>
+			<p class="lead"> Currently there are no local adventures. Create your own story and add it to the library!</p>
+			<%= link_to "Create Your Own Adventure!", new_adventure_path %>
+		<% else %>
+			<% @local_adventures.each do |adventure| %> 
+				 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
+			<%end%>
+		<%end%>
+
+	<h3>Adventures from Other Servers</h3>
+		<dl><% @other_adventures.each do |adventure| %>
+			<dt><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></dt>
+		<%end%>
+		</dl>
+
+	<% if @broken_adventures.count > 0 %>
+		<h3>Adventures with no Start Page</h3>
+		<% @broken_adventures.each do |adventure| %>
+				<li><%= adventure.title %></li>
+			<%end%>
 	<%end%>
 
-<h3>Adventures from Other Servers</h3>
-	<% @other_adventures.each do |adventure| %>
-		<li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
-	<%end%>
-
-<h3>Adventures with no Start Page</h3>
-<% @broken_adventures.each do |adventure| %>
-		<li><%= adventure.title %></li>
-	<%end%>
-
-<h3>Add your library</h3>
-<%= form_for @library do |f| %>
-  <%= f.label :url %>
-  <%= f.text_field :url, :autofocus => true, :placeholder => "URL" %>
-  <%= f.submit %>
-<% end %>
-
-<br><%= link_to "Create Your Own Adventure!", new_adventure_path %>
+	<h3>Add your library: </h3>
+	<h4><%= form_for @library do |f| %>
+	  <%= f.label :url %>
+	  <%= f.text_field :url, :autofocus => true, :placeholder => "your library's url here" %>
+	  <%= f.submit %>
+	<% end %>
+</h4>
+</div>
