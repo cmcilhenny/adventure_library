@@ -1,10 +1,8 @@
 # Adventure Library
 
-## WDI mini-project for 2/13/2014
+This is a start for making a node in a distributed text adventure library. To visit this live, go to: http://adventure-lib-cm.herokuapp.com.
 
-This is your start for making your node in our distributed text adventure library.
-
-Each of you will build a website which allows a user to view text adventures, click through the pages, and add text adventures to the database.  Here's the twist.  A user on your site will also be able to put in the name of another text adventure library, and your site will retrieve all the text adventures which were made in that library, and all of the other libraries that that library knows about.  Conversely, your library will make available via JSON endpoints all the text adventures which are locally made, and a list of all the servers which your server knows about.
+This is a website which allows a user to view text adventures, click through the pages, and add text adventures to the database. A user on this site is also be able to put in the name of another text adventure library, and your site will retrieve all the text adventures which were made in that library, and all of the other libraries that that library knows about.  Conversely, your library will make available via JSON endpoints all the text adventures which are locally made, and a list of all the servers which your server knows about.
 
 ## Subjects covered in this project:
 
@@ -23,7 +21,7 @@ A user can EDIT and UPDATE an adventure which was created on the local server by
 
 A user can view an INDEX of adventures and click through to a specific adventure.
 
-A user can be SHOWn an adventure.  This will start them on the page for that adventure which has the name "start".  I.E, `adventure.pages.where(:name => "start")`.  The text for that page will be shown, with any connections between pages in that text turned into links in the HTML.  Connections between pages are in the following format: [[link text|linked_to_page_name]].  See the section "Displaying the text of a Page" for information on how to turn these double bracket links into anchor tags.
+A user can be SHOWn an adventure.  This will start them on the page for that adventure which has the name "start". The text for that page will be shown, with any connections between pages in that text turned into links in the HTML.  Connections between pages are in the following format: [[link text|linked_to_page_name]].  See the section "Displaying the text of a Page" for information on how to turn these double bracket links into anchor tags.
 
 A user can click through links on a page to go to connected pages.
 
@@ -45,13 +43,11 @@ If your library tries to scrape itself, it will retrieve a list of adventures an
 
 In the scraping process, if other servers are returning "id" fields from their local database, do not use their ids to save data to your database.  Save just the fields you want.  They might conflict with the ids of data in your database.  In your JSON api, it would be considerate to not include the "id" field in your responses. 
 
-BONUS: After a library has been added to the server, use Sidetiq to retrieve updated adventures from that server on a regular basis.  Overwrite the correct adventure in your database using the GUID.
-
 ## Displaying the text of a Page
 
-We can use Ruby's String#gsub functionality to substitute one substring for another throughout the string.  We use a regular expression to detect the pattern of the link in double brackets, then in the passed block, return the HTML link (anchor tag) which we want to replace it with.
+This project uses Ruby's String#gsub functionality to substitute one substring for another throughout the string.  A regular expression is used to detect the pattern of the link in double brackets, then in the passed block, return the HTML link (anchor tag) which we want to replace it with.
 
-We've provided a method `linkify_page` in PagesHelper which takes a page and returns the text with the double bracket links replaced with anchor tags.  It assumes you have not changed the routes, so a page should be accessible at:
+There is a provided method `linkify_page` in PagesHelper which takes a page and returns the text with the double bracket links replaced with anchor tags. It assumes the following route, so a page should be accessible at:
 
 `/adventures/:adventure_id/pages/:page_id`
 
@@ -74,14 +70,8 @@ Library:
   * has many Adventures
   * has a URL
 
-## Possible order of work:
+## Add your adventure!
+You can add your own adventure by creating your own adventure on the main page. I also encourage you to fork and clone this project and create your own Adventure Library.
 
-* Write the migrations and models.  I suggest you at least test the guid setting for adventures.
-* Let a user see a list of adventures and get the JSON spec for a list of adventures passing
-* Let a user click through an adventure (starting with the page whose name is "start").  You'll use the helper method linkify_page for this.  Give it a Page object, and it will give you the text of the page, with double bracket style links ([[Go to the end|endpage]])turned into <a> tags.
-* Get the scraper working from rails console.  Make a method you can call from rails console which will set off the scraping.  I.E. library.scrape will go to that library's url and scrape the adventures and known libraries.
-* Make a sidekiq worker which calls your scraping function.
-* Let a user submit a url to scrape, which will set the worker going.
-* Build a story creation and editing interface.
 
 
