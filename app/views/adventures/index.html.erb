@@ -14,14 +14,18 @@
 
 	<h3>Adventures from Other Servers</h3>
 		<dl><% @other_adventures.each do |adventure| %>
-			<dt><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></dt>
+			<dt><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %> -- <%=adventure.author%></dt>
+			<dd><%=h truncate(adventure.pages.where(name: "start").first.text, :length => 30)%></dd>
 		<%end%>
 		</dl>
 
 	<% if @broken_adventures.count > 0 %>
 		<h3>Adventures with no Start Page</h3>
 		<% @broken_adventures.each do |adventure| %>
-				<li><%= adventure.title %></li>
+				<dl>
+					<dt><%= adventure.title %></dt>
+					<dt><%= adventure.author%></dt>
+				</dl>
 			<%end%>
 	<%end%>
 
