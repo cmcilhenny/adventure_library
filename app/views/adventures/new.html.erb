@@ -1,18 +1,35 @@
+<div class="container">
 <h2>Create A New Adventure</h2>
 
-<%= form_for @adventure do |f| %>
-	<%= f.label :title %>
-  <%= f.text_field :title, :autofocus => true, :placeholder => "title" %><br>
-  <%= f.label :author %>
-  <%= f.text_field :author, placeholder: "author" %><br>
+<%= form_for @adventure, :class => "form-horizontal" do |f| %>
+  <div class="form-group">
+	 <%= f.label :title, :class=>"col-sm-2 control-label" %>
+    <div class="col-sm-10">
+    <%= f.text_field :title, :autofocus => true, :placeholder => "title", :class=>"form-control" %><br>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :author, :class=>"col-sm-2 control-label" %>
+    <div class="col-sm-10">
+    <%= f.text_field :author, placeholder: "author", :class=>"form-control"  %><br>
+    </div>
+  </div>
+
   <%= f.fields_for :pages do |b| %>
-  	<%= b.label "Page Name" %>
-  	<%= b.text_field :name, placeholder: "start" %><br>
-  	<%= b.label :text %>
-  	<%= b.text_area :text, placeholder: "This is a great text adventure which is beginning right now!  I can't wait to [[see the end|end]]" %>
-  	
+  	<div class="form-group">
+      <%= b.label "Page Name", :class=>"col-sm-2 control-label" %>
+      <div class="col-sm-10">
+  	   <%= b.text_field :name, placeholder: "start", :class => "form-control" %><br>
+      </div>
+    </div>
+    <div class="form-group">
+  	 <%= b.label :text, :class=>"col-sm-2 control-label" %>
+  	 <div class="col-sm=10">
+     <%= b.text_area :text, placeholder: "This is a great text adventure which is beginning right now!  I can't wait to [[see the end|end]]", :class => "form-control" %>
+  	 </div>
+    </div>
   <%end%>
-  <br><%= f.submit %>
+  <br><%= f.submit :class => "btn, btn-success pull-right" %>
 
 <%end%>
-
+</div>
