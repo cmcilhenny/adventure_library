@@ -5,17 +5,18 @@
 	<h3>Local Adventures</h3>
 		<% if @local_adventures.count < 1 %>
 			<p class="lead"> Currently there are no local adventures. Create your own story and add it to the library!</p>
-			<%= link_to "Create Your Own Adventure!", new_adventure_path %>
+			<%= link_to "Create Your Own Adventure!", new_adventure_path, :class => "btn btn-success" %>
 		<% else %>
 			<% @local_adventures.each do |adventure| %> 
 				 <li><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %></li>
-			<%end%>
+			<%end%><br>
+			<%= link_to "Create Your Own Adventure!", new_adventure_path, :class => "btn btn-success" %>
 		<%end%>
 
 	<h3>Adventures from Other Servers</h3>
 		<dl><% @other_adventures.each do |adventure| %>
 			<dt><%= link_to adventure.title, adventure_page_path(adventure_id: adventure.id, id: adventure.pages.where(name: "start").first.id) %> -- <%=adventure.author%></dt>
-			<dd><%=h truncate(adventure.pages.where(name: "start").first.text, :length => 30)%></dd>
+			<dd><%=h truncate(adventure.pages.where(name: "start").first.text, :length => 100)%></dd>
 		<%end%>
 		</dl>
 

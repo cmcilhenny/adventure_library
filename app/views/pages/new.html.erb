@@ -1,21 +1,34 @@
-<h2>Write the Pages for Your New Adventure Here</h2>
-<h4>helpful tip: remember to link your pages using the following syntax at the end of your page: [[link text|linked_to_page_name]].</h4>
+<div class = "container">
+	<%= link_to "Adventure Index", adventures_path, :class => "pull-right" %> 
+	<h2>Write the Pages for Your New Adventure Here</h2>
+	<h4 class="bg-info">HELPER TIP: 
+	Remember to link your pages using the following syntax at the end of your page: [[link text|linked_to_page_name]].</h4><br>
 
 
-<%= form_for [@adventure, @page] do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name, placeholder: "linked_to_page_name" %><br>
-	<%= f.label :text %>
-	<%= f.text_area :text, placeholder: "page text" %><br>
-	<%= f.submit %>
-<%end%>
+	<%= form_for [@adventure, @page], :class => "form-horizontal" do |f| %>
+		<div class="form-group">
+			<%= f.label :name, :class => "col-sm-2 control-label" %>
+			<div class="col-sm-10">
+				<%= f.text_field :name, placeholder: "linked_to_page_name", :class => "form-control" %><br>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :text, :class => "col-sm-2 control-label" %>
+			<div class="col-sm-10">
+				<%= f.text_area :text, placeholder: "page text", :class => "form-control" %><br>
+			</div>
+		</div>
+		<%= f.submit :class => "btn btn-success " %>
+	<%end%>
 
-<h2>Previous Pages Info</h2>
-<% @pages.each do |page| %>
-	<p><strong>Page Name: </strong>
-	<%=page.name %></p>
-	<p><strong>Text: </strong>
-	<%= page.text %></p>
-<%end%>
+	<h2>Previous Pages Info</h2>
+	<% @pages.each do |page| %>
+		<div class="bg-success">
+			<p><strong>Page Name: </strong>
+			<%=page.name %></p>
+			<p><strong>Text: </strong>
+			<%= page.text %></p>
+		</div>
+	<%end%>
 
-<%= link_to "Adventure Index", adventures_path %> 
+</div>

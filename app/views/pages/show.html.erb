@@ -1,3 +1,6 @@
-<h3><%=@adventure.title%><h3>
+<div class = "container">
+	<%= link_to "Adventure Index", adventures_path, :class => "pull-right" %>
 
-<h4><%=raw linkify_page(@page) %><h4>
+	<h3><%=@adventure.title%><h3>
+	<h4><%=raw linkify_page(@page) %><h4>
+</div>
